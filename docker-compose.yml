@@ -1,0 +1,46 @@
+version: '3'
+services:
+  node0:
+    build: .
+    command: python raft_node.py 0
+    ports:
+      - "18861:18861"  # Maps host:18861 to container:18861
+    volumes:
+      - node0-data:/app/data
+    networks:
+      raft-network:
+        aliases:
+          - node0
+
+  node1:
+    build: .
+    command: python raft_node.py 1
+    ports:
+      - "18862:18862"  # Maps host:18862 to container:18862
+    volumes:
+      - node1-data:/app/data
+    networks:
+      raft-network:
+        aliases:
+          - node1
+
+  node2:
+    build: .
+    command: python raft_node.py 2
+    ports:
+      - "18863:18863"  # Maps host:18863 to container:18863
+    volumes:
+      - node2-data:/app/data
+    networks:
+      raft-network:
+        aliases:
+          - node2
+
+networks:
+  raft-network:
+    driver: bridge
+
+volumes:
+  node0-data:
+  node1-data:
+  node2-data:
